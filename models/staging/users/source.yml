@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: users
+    database: RAW
+    schema: USERS
+    tables:
+      - name: df_users
