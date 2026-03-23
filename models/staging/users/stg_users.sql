@@ -5,20 +5,20 @@ WITH source AS (
 renamed AS (
     SELECT
         -- Primary key
-        CAST(user_id AS VARCHAR)  AS user_id,
+        CAST(user_id AS VARCHAR(9))  AS user_id,
 
         -- User attributes
-        email,
-        phone,
-        age,
-        registration_type,
-        user_bot,
-        internal_user,
+        CAST(email AS VARCHAR)              AS email,
+        CAST(phone AS INTEGER)              AS phone,
+        CAST(age AS INTEGER)                AS age,
+        CAST(registration_type AS VARCHAR)  AS registration_type,
+        CAST(user_bot AS INTEGER)           AS user_bot,
+        CAST(internal_user AS INTEGER)      AS internal_user,
 
         -- Dates
         CAST(signup_date AS TIMESTAMP)      AS signup_date,
         CAST(signup_date_new AS DATE)       AS signup_date_clean,
-        CAST(trial_date AS TIME)            AS trial_date,
+        CAST(trial_date AS TIMESTAMP)       AS trial_date,
 
         -- Subscription dates
         CAST(subscr_3m_date AS DATE)        AS subscr_3m_date,
