@@ -1,0 +1,259 @@
+version: 2
+
+models:
+  # -------------------------------------------------------
+  # USERS
+  # -------------------------------------------------------
+  - name: stg_users
+    description: "Cleaned and standardized users data, excluding bots and internal users"
+    columns:
+      - name: user_id
+        description: "Primary key - unique user identifier"
+        tests:
+          - unique
+          - not_null
+      - name: email
+        description: "User email address"
+        tests:
+          - not_null
+      - name: phone
+        description: "User phone number"
+      - name: age
+        description: "User age"
+      - name: registration_type
+        description: "How the user registered - SSO or EMAIL"
+        tests:
+          - accepted_values:
+              values: ['SSO', 'EMAIL']
+      - name: user_bot
+        description: "Flag indicating if user is a bot"
+        tests:
+          - not_null
+      - name: internal_user
+        description: "Flag indicating if user is internal"
+        tests:
+          - not_null
+      - name: signup_date
+        description: "Timestamp when user signed up"
+        tests:
+          - not_null
+      - name: signup_date_clean
+        description: "Date when user signed up"
+      - name: trial_date
+        description: "Trial period date"
+      - name: subscr_3m_date
+        description: "3 month subscription date"
+      - name: subscr_12m_date
+        description: "12 month subscription date"
+      - name: marketing_12m_subscr
+        description: "12 month marketing subscription flag"
+
+  # -------------------------------------------------------
+  # WEB
+  # -------------------------------------------------------
+  - name: stg_visits
+    description: "Cleaned and standardized website visit data"
+    columns:
+      - name: user_id
+        description: "Foreign key to stg_users"
+        tests:
+          - not_null
+      - name: visit_date
+        description: "Timestamp of the website visit"
+        tests:
+          - not_null
+      - name: webpages
+        description: "List of webpages visited during session"
+        tests:
+          - not_null
+
+  - name: stg_conversions
+    description: "Cleaned and standardized conversion events"
+    columns:
+      - name: user_id
+        description: "Foreign key to stg_users"
+        tests:
+          - not_null
+      - name: signup_date
+        description: "Timestamp of the conversion event"
+        tests:
+          - not_null
+      - name: conversion_type
+        description: "Type of conversion - paid or organic"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['paid', 'organic']
+      - name: campaign_name
+        description: "Name of the campaign associated with conversion"
+      - name: year_month_day
+        description: "Date of conversion truncated to day"
+
+  # -------------------------------------------------------
+  # EMAIL
+  # -------------------------------------------------------
+  - name: stg_email_sent
+    description: "Cleaned and standardized sent email data"
+    columns:
+      - name: user_id
+        description: "Foreign key to stg_users"
+        tests:
+          - not_null
+      - name: emails
+        description: "Email campaign name"
+        tests:
+          - not_null
+      - name: sent_email
+        description: "Timestamp when email was sent"
+        tests:
+          - not_null
+
+  - name: stg_email_delivered
+    description: "Cleaned and standardized delivered email data"
+    columns:
+      - name: user_id
+        description: "Foreign key to stg_users"
+        tests:
+          - not_null
+      - name: emails
+        description: "Email campaign name"
+        tests:
+          - not_null
+      - name: delivered_email
+        description: "Timestamp when email was delivered"
+        tests:
+          - not_null
+
+  - name: stg_email_opened
+    description: "Cleaned and standardized opened email data"
+    columns:
+      - name: user_id
+        description: "Foreign key to stg_users"
+        tests:
+          - not_null
+      - name: emails
+        description: "Email campaign name"
+        tests:
+          - not_null
+      - name: open_email
+        description: "Timestamp when email was opened"
+        tests:
+          - not_null
+
+  - name: stg_email_clicked
+    description: "Cleaned and standardized clicked email data"
+    columns:
+      - name: user_id
+        description: "Foreign key to stg_users"
+        tests:
+          - not_null
+      - name: emails
+        description: "Email campaign name"
+        tests:
+          - not_null
+      - name: clicked_email
+        description: "Timestamp when email was clicked"
+        tests:
+          - not_null
+
+  - name: stg_email_bounced
+    description: "Cleaned and standardized bounced email data"
+    columns:
+      - name: user_id
+        description: "Foreign key to stg_users"
+        tests:
+          - not_null
+      - name: emails
+        description: "Email campaign name"
+        tests:
+          - not_null
+      - name: bounced_email
+        description: "Timestamp when email bounced"
+        tests:
+          - not_null
+
+  - name: stg_email_spam
+    description: "Cleaned and standardized spam email data"
+    columns:
+      - name: user_id
+        description: "Foreign key to stg_users"
+        tests:
+          - not_null
+      - name: emails
+        description: "Email campaign name"
+        tests:
+          - not_null
+      - name: spam_email
+        description: "Timestamp when email was marked as spam"
+        tests:
+          - not_null
+
+  # -------------------------------------------------------
+  # MARKETING
+  # -------------------------------------------------------
+  - name: stg_campaigns
+    description: "Cleaned and standardized campaign dimension data"
+    columns:
+      - name: campaign_id
+        description: "Primary key - unique campaign identifier"
+        tests:
+          - unique
+          - not_null
+      - name: campaign_name
+        description: "Name of the campaign"
+        tests:
+          - not_null
+      - name: campaign_status
+        description: "Current status of the campaign - active or inactive"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['active', 'inactive']
+
+  - name: stg_campaign_performance
+    description: "Cleaned and standardized campaign performance metrics"
+    columns:
+      - name: year_month_day
+        description: "Date of the campaign performance record"
+        tests:
+          - not_null
+      - name: campaign_id
+        description: "Foreign key to stg_campaigns"
+        tests:
+          - not_null
+      - name: impressions
+        description: "Number of impressions"
+        tests:
+          - not_null
+      - name: clicks
+        description: "Number of clicks"
+        tests:
+          - not_null
+      - name: cost
+        description: "Cost of the campaign on that day"
+        tests:
+          - not_null
+
+  - name: stg_campaign_cost
+    description: "Cleaned and standardized campaign cost data"
+    columns:
+      - name: year_month_day
+        description: "Date of the cost record"
+        tests:
+          - not_null
+      - name: campaign_id
+        description: "Foreign key to stg_campaigns"
+        tests:
+          - not_null
+      - name: impressions
+        description: "Number of impressions"
+        tests:
+          - not_null
+      - name: clicks
+        description: "Number of clicks"
+        tests:
+          - not_null
+      - name: cost
+        description: "Cost of the campaign on that day"
+        tests:
+          - not_null
