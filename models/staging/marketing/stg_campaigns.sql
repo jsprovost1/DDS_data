@@ -4,7 +4,7 @@ WITH source AS (
 
 renamed AS (
     SELECT
-        -- Primary key
+        -- Not Primary key
         CAST(campaign_id AS VARCHAR)        AS campaign_id,
 
         -- Campaign attributes
