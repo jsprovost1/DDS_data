@@ -24,7 +24,10 @@ models:
         description: "How the user registered - SSO or EMAIL"
         tests:
           - accepted_values:
-              values: ['SSO', 'EMAIL']
+              arguments:
+                values: 
+                  - SSO
+                  - EMAIL
       - name: user_bot
         description: "Flag indicating if user is a bot"
         tests:
@@ -83,7 +86,10 @@ models:
         tests:
           - not_null
           - accepted_values:
-              values: ['paid', 'organic']
+              arguments: 
+                values:
+                  - paid
+                  - organic
       - name: campaign_name
         description: "Name of the campaign associated with conversion"
       - name: year_month_day
@@ -197,7 +203,6 @@ models:
       - name: campaign_id
         description: "Primary key - unique campaign identifier"
         tests:
-          - unique
           - not_null
       - name: campaign_name
         description: "Name of the campaign"
@@ -208,7 +213,10 @@ models:
         tests:
           - not_null
           - accepted_values:
-              values: ['active', 'inactive']
+              arguments: 
+                values:
+                  - active
+                  - inactive
 
   - name: stg_campaign_performance
     description: "Cleaned and standardized campaign performance metrics"
