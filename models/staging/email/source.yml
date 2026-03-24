@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: email
+    database: RAW
+    schema: EMAIL
+    tables:
+      - name: df_sent
+      - name: df_delivered
+      - name: df_open
+      - name: df_clicked
+      - name: df_bounced
+      - name: df_spam

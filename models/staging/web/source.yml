@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: web
+    database: RAW
+    schema: WEB
+    tables:
+      - name: df_visit
+      - name: df_conversion

@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: marketing
+    database: RAW
+    schema: MARKETING
+    tables:
+      - name: df_campaigns
+      - name: df_campaign
+      - name: df_campaign_cost
