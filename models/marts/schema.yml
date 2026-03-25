@@ -192,3 +192,172 @@ models:
         description: "Average cost per click"
       - name: cost_per_conversion
         description: "Average cost per conversion"
+
+  # MART SUBSCRIPTION FUNNEL
+  # -------------------------------------------------------
+  - name: mart_subscription_funnel
+    description: "Full subscription journey per user from signup through free trial, 3-month and 12-month subscriptions. One row per user."
+    columns:
+      - name: user_id
+        description: "Primary key - unique user identifier"
+        tests:
+          - unique
+          - not_null
+      - name: email
+        description: "User email address"
+        tests:
+          - not_null
+      - name: age
+        description: "User age"
+      - name: registration_type
+        description: "How the user registered - SSO or EMAIL"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - SSO
+                  - EMAIL
+      - name: marketing_12m_subscr
+        description: "12 month marketing subscription flag"
+      - name: signup_date
+        description: "Timestamp when user signed up"
+        tests:
+          - not_null
+      - name: signup_day
+        description: "Date when user signed up"
+        tests:
+          - not_null
+      - name: signup_month
+        description: "Month when user signed up"
+        tests:
+          - not_null
+      - name: signup_year
+        description: "Year when user signed up"
+        tests:
+          - not_null
+      - name: trial_date
+        description: "Date when user started free trial"
+      - name: has_trial
+        description: "Flag indicating if user started a free trial"
+        tests:
+          - not_null
+      - name: days_signup_to_trial
+        description: "Number of days from signup to free trial"
+      - name: subscr_3m_date
+        description: "Date when user started 3-month subscription"
+      - name: has_3m_subscription
+        description: "Flag indicating if user has a 3-month subscription"
+        tests:
+          - not_null
+      - name: days_trial_to_3m
+        description: "Number of days from free trial to 3-month subscription"
+      - name: days_signup_to_3m
+        description: "Number of days from signup to 3-month subscription"
+      - name: subscr_12m_date
+        description: "Date when user started 12-month subscription"
+      - name: has_12m_subscription
+        description: "Flag indicating if user has a 12-month subscription"
+        tests:
+          - not_null
+      - name: days_3m_to_12m
+        description: "Number of days from 3-month to 12-month subscription"
+      - name: days_signup_to_12m
+        description: "Number of days from signup to 12-month subscription"
+      - name: first_paid_campaign
+        description: "First paid campaign associated with the user"
+      - name: acquisition_type
+        description: "Whether the user was acquired via paid, organic or unknown channel"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - paid
+                  - organic
+                  - unknown
+      - name: funnel_stage
+        description: "Furthest stage reached in the subscription funnel"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - 1_signup
+                  - 2_trial
+                  - 3_monthly
+                  - 4_yearly
+      - name: subscription_status
+        description: "Current subscription status of the user"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - active_yearly
+                  - active_monthly
+                  - active_trial
+                  - churned
+
+  # -------------------------------------------------------
+  # MART WEB BEHAVIOR
+  # -------------------------------------------------------
+  - name: mart_web_behavior
+    description: "Website behavior metrics per user including visits, pages viewed and conversion patterns. One row per user."
+    columns:
+      - name: user_id
+        description: "Primary key - unique user identifier"
+        tests:
+          - unique
+          - not_null
+      - name: email
+        description: "User email address"
+        tests:
+          - not_null
+      - name: age
+        description: "User age"
+      - name: registration_type
+        description: "How the user registered - SSO or EMAIL"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - SSO
+                  - EMAIL
+      - name: signup_date
+        description: "Timestamp when user signed up"
+        tests:
+          - not_null
+      - name: login_duration
+        description: "Login duration of the user"
+      - name: total_visits
+        description: "Total number of website visits"
+      - name: unique_visit_days
+        description: "Number of unique days the user visited the website"
+      - name: unique_pages_visited
+        description: "Number of unique pages visited"
+      - name: first_visit_date
+        description: "Date of first website visit"
+      - name: last_visit_date
+        description: "Date of most recent website visit"
+      - name: days_between_first_last_visit
+        description: "Number of days between first and last visit"
+      - name: visits_before_signup
+        description: "Number of visits before signing up"
+        tests:
+          - not_null
+      - name: last_visit_before_signup
+        description: "Date of last visit before signup"
+      - name: first_visit_timestamp
+        description: "Timestamp of first visit"
+      - name: first_visit_page
+        description: "First webpage visited"
+      - name: days_first_visit_to_signup
+        description: "Number of days from first visit to signup"
+      - name: first_visit_login_duration
+        description: "Login duration on first visit"
+      - name: converted_to_trial
+        description: "Flag indicating if user converted to a free trial"
+        tests:
+          - not_null
