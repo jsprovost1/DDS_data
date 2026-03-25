@@ -1,0 +1,194 @@
+version: 2
+
+models:
+  # -------------------------------------------------------
+  # MART USERS
+  # -------------------------------------------------------
+  - name: mart_users
+    description: "Final user profile table combining user attributes, conversion metrics and web visit behavior. One row per user."
+    columns:
+      - name: user_id
+        description: "Primary key - unique user identifier"
+        tests:
+          - unique
+          - not_null
+      - name: email
+        description: "User email address"
+        tests:
+          - not_null
+      - name: age
+        description: "User age"
+      - name: registration_type
+        description: "How the user registered - SSO or EMAIL"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - SSO
+                  - EMAIL
+      - name: signup_date
+        description: "Timestamp when user signed up"
+        tests:
+          - not_null
+      - name: signup_date_clean
+        description: "Date when user signed up"
+      - name: trial_date
+        description: "Trial period date"
+      - name: subscr_3m_date
+        description: "3 month subscription date"
+      - name: subscr_12m_date
+        description: "12 month subscription date"
+      - name: marketing_12m_subscr
+        description: "12 month marketing subscription flag"
+      - name: total_conversions
+        description: "Total number of conversions for the user"
+        tests:
+          - not_null
+      - name: paid_conversions
+        description: "Total number of paid conversions for the user"
+        tests:
+          - not_null
+      - name: organic_conversions
+        description: "Total number of organic conversions for the user"
+        tests:
+          - not_null
+      - name: first_conversion_date
+        description: "Timestamp of the first conversion event"
+      - name: last_campaign
+        description: "Last campaign the user was associated with"
+      - name: acquisition_type
+        description: "Whether the user was acquired via paid or organic channel"
+        tests:
+          - accepted_values:
+              arguments:
+                values:
+                  - paid
+                  - organic
+      - name: days_to_conversion
+        description: "Number of days from signup to first conversion"
+      - name: total_visits
+        description: "Total number of website visits"
+        tests:
+          - not_null
+      - name: first_visit_date
+        description: "Timestamp of the first website visit"
+      - name: last_visit_date
+        description: "Timestamp of the most recent website visit"
+      - name: days_active
+        description: "Number of days between first and last visit"
+
+  # -------------------------------------------------------
+  # MART EMAIL ENGAGEMENT
+  # -------------------------------------------------------
+  - name: mart_email_engagement
+    description: "Email funnel metrics per user and email campaign. One row per user per email campaign."
+    columns:
+      - name: user_id
+        description: "Foreign key to mart_users"
+        tests:
+          - not_null
+      - name: email
+        description: "User email address"
+        tests:
+          - not_null
+      - name: registration_type
+        description: "How the user registered"
+      - name: signup_date_clean
+        description: "Date when user signed up"
+      - name: email_campaign
+        description: "Name of the email campaign"
+        tests:
+          - not_null
+      - name: total_sent
+        description: "Total number of emails sent to user"
+        tests:
+          - not_null
+      - name: total_delivered
+        description: "Total number of emails delivered to user"
+        tests:
+          - not_null
+      - name: total_opened
+        description: "Total number of emails opened by user"
+        tests:
+          - not_null
+      - name: total_clicked
+        description: "Total number of emails clicked by user"
+        tests:
+          - not_null
+      - name: total_bounced
+        description: "Total number of emails bounced for user"
+        tests:
+          - not_null
+      - name: total_spam
+        description: "Total number of emails marked as spam by user"
+        tests:
+          - not_null
+      - name: first_sent_date
+        description: "Date of first email sent to user"
+      - name: last_sent_date
+        description: "Date of most recent email sent to user"
+      - name: delivery_rate
+        description: "Percentage of emails delivered out of sent"
+      - name: open_rate
+        description: "Percentage of emails opened out of delivered"
+      - name: click_to_open_rate
+        description: "Percentage of emails clicked out of opened"
+      - name: bounce_rate
+        description: "Percentage of emails bounced out of sent"
+      - name: spam_rate
+        description: "Percentage of emails marked as spam out of sent"
+
+  # -------------------------------------------------------
+  # MART CAMPAIGN ANALYTICS
+  # -------------------------------------------------------
+  - name: mart_campaign_analytics
+    description: "Daily campaign performance metrics including impressions, clicks, cost and conversions. One row per campaign per day."
+    columns:
+      - name: campaign_id
+        description: "Foreign key to stg_campaigns"
+        tests:
+          - not_null
+      - name: campaign_name
+        description: "Name of the campaign"
+        tests:
+          - not_null
+      - name: campaign_status
+        description: "Current status of the campaign"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - active
+                  - inactive
+      - name: year_month_day
+        description: "Date of the campaign performance record"
+        tests:
+          - not_null
+      - name: daily_impressions
+        description: "Number of impressions on that day"
+        tests:
+          - not_null
+      - name: daily_clicks
+        description: "Number of clicks on that day"
+        tests:
+          - not_null
+      - name: daily_cost
+        description: "Total cost on that day"
+        tests:
+          - not_null
+      - name: total_conversions
+        description: "Total conversions attributed to the campaign"
+        tests:
+          - not_null
+      - name: unique_users_converted
+        description: "Number of unique users converted by the campaign"
+        tests:
+          - not_null
+      - name: click_through_rate
+        description: "Percentage of impressions that resulted in a click"
+      - name: cost_per_click
+        description: "Average cost per click"
+      - name: cost_per_conversion
+        description: "Average cost per conversion"

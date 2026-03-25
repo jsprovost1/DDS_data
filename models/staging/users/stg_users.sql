@@ -14,6 +14,7 @@ renamed AS (
         CAST(registration_type AS VARCHAR)  AS registration_type,
         CAST(user_bot AS INTEGER)           AS user_bot,
         CAST(internal_user AS INTEGER)      AS internal_user,
+        CAST(login_duration AS FLOAT)      AS login_duration,
 
         -- Dates
         CAST(signup_date AS TIMESTAMP)      AS signup_date,
