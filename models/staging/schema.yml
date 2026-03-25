@@ -36,6 +36,10 @@ models:
         description: "Flag indicating if user is internal"
         tests:
           - not_null
+      - name: login_duration
+        description: "Duration in seconds of the first session"
+        tests:
+          - not_null
       - name: signup_date
         description: "Timestamp when user signed up"
         tests:
