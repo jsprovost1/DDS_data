@@ -30,16 +30,14 @@ visits_before_signup AS (
 -- -----------------------------------------------
 first_visit AS (
     SELECT
-        v.user_id,
-        v.visit_date                        AS first_visit_date,
-        v.webpages                          AS first_visit_page
-    FROM visits v
-    INNER JOIN (
-        SELECT user_id, MIN(visit_date) AS min_visit
-        FROM visits
-        GROUP BY user_id
-    ) fv ON v.user_id = fv.user_id
-        AND v.visit_date = fv.min_visit
+        user_id,
+        visit_date                          AS first_visit_date,
+        webpages                            AS first_visit_page
+    FROM visits
+    QUALIFY ROW_NUMBER() OVER (
+        PARTITION BY user_id
+        ORDER BY visit_date ASC
+    ) = 1
 ),
 
 -- -----------------------------------------------
