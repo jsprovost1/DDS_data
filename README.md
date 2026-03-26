@@ -7,6 +7,7 @@
 - [Project Overview](#project-overview)
 - [Business Context](#business-context)
 - [Tech Stack](#tech-stack)
+- [Lineage Graph](#lineage-graph)
 - [Architecture](#architecture)
 - [Project Structure](#project-structure)
 - [Data Models](#data-models)
@@ -57,6 +58,13 @@ The dataset covers **43,898 unique users** over the period **January 2019 – Ma
 | **dbt Cloud** | Data transformation & orchestration |
 | **SQL** | Data transformation logic |
 | **Python** | Source data preparation & CSV cleaning |
+
+---
+
+## Lineage Graph
+
+![dbt Lineage Graph](images/lineage_graph.png)
+
 
 ---
 
