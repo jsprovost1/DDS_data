@@ -63,7 +63,7 @@ The dataset covers **43,898 unique users** over the period **January 2019 – Ma
 
 ## Lineage Graph
 
-![dbt Lineage Graph](images/lineage_graph.png)
+![dbt Lineage Graph](images/full_lineage.png)
 
 
 ---
