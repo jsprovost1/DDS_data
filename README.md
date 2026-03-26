@@ -7,8 +7,8 @@
 - [Project Overview](#project-overview)
 - [Business Context](#business-context)
 - [Tech Stack](#tech-stack)
-- [Lineage Graph](#lineage-graph)
 - [Architecture](#architecture)
+- [Lineage Graph](#lineage-graph)
 - [Project Structure](#project-structure)
 - [Data Models](#data-models)
 - [Key Design Decisions](#key-design-decisions)
@@ -61,13 +61,6 @@ The dataset covers **43,898 unique users** over the period **January 2019 – Ma
 
 ---
 
-## Lineage Graph
-
-![dbt Lineage Graph](images/full_lineage.png)
-
-
----
-
 ## Architecture
 
 The pipeline follows a **multi-layered architecture** that separates concerns at each stage:
@@ -106,6 +99,11 @@ The pipeline follows a **multi-layered architecture** that separates concerns at
 
 ---
 
+## Lineage Graph
+
+![dbt Lineage Graph](images/full_lineage.png)
+
+---
 ## Project Structure
 
 ```
